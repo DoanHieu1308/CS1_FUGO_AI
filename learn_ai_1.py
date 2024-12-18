@@ -18,11 +18,30 @@ def format_jobs_data(jobs):
         f"country: {job['country']}\n"
         f"profession: {job['profession']}\n"
         f"experience: {job['experience']}\n"
+        f"educationalLevel: {job['educationalLevel']}\n"
         for job in jobs
     ])
 
-def suggest_jobs(user_info, jobs_data):
-    formatted_jobs = format_jobs_data(jobs_data)
+# Định dạng lại dữ liệu để tạo prompt cho GPT-3
+def format_studys_data(studys):
+    return "\n".join([
+        f"_id: {study['_id']}\n"
+        f"title: {study['title']}\n"
+        f"description: {study['description']}\n"
+        f"requirements: {study['requirements']}\n"
+        f"country: {study['country']}\n"
+        f"duration: {study['duration']}\n"
+        f"location: {study['location']}\n"
+        f"status: {study['status']}\n"
+        for study in studys
+    ])
+
+def suggest_jobs(user_info, jobs_data, kind):
+    if kind == "job" : 
+        formatted_jobs = format_jobs_data(jobs_data)
+    else: 
+        formatted_jobs = format_studys_data(jobs_data)
+
     # Create a conversation message structure
     messages = [
         {"role": "system", "content": "You are a global study abroad and labor export consultant."},

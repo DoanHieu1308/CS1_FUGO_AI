@@ -11,9 +11,8 @@ from flask import Flask, request, jsonify
 # Khởi tạo Flask app
 app = Flask(__name__)
 
-
+# Job
 def content_based_recommendations(jobs_df, selected_jobs_df, top_n=20):
-    # Chuyển đổi cột created_at sang định dạng datetime nếu chưa
     jobs_df = jobs_df.copy()
 
     # Tính điểm content_score
@@ -77,13 +76,14 @@ def content_based_recommendations(jobs_df, selected_jobs_df, top_n=20):
 
 
 # Endpoint nhận yêu cầu và trả kết quả
-@app.route("/api/recommend", methods=["POST"])
+@app.route("/api/recommend/jobs", methods=["POST"])
 def recommend():
     try:
         # Lấy tất cả các jobs
         url = "http://localhost:3000/api/v1/jobs"
         headers = {'Content-Type': 'application/json'}
 
+        
         response = requests.get(url, headers=headers)
 
         if response.status_code == 200:
@@ -126,7 +126,7 @@ def recommend():
         print("recommended_jobs_list", recommended_jobs_list)
 
         # Lấy gợi ý từ AI
-        jobs_id_recomment_of_ai = suggest_jobs(user_profile[0], recommended_jobs_list)
+        jobs_id_recomment_of_ai = suggest_jobs(user_profile[0], recommended_jobs_list, "job")
         print("jobs_id_recomment_of_ai", jobs_id_recomment_of_ai)
         
         # Lọc các công việc và giữ nguyên thứ tự của jobs_id_recomment_of_ai
@@ -144,4 +144,4 @@ def recommend():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
