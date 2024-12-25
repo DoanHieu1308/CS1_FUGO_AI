@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "csv": "^6.3.10",
+    "datetime": "^0.0.3",
+    "faker": "^6.6.6",
+    "pandas": "^0.0.3",
+    "random": "^5.1.1",
+    "scikit-learn": "^0.1.0",
+    "scipy": "^0.1.4"
+  }
+}
