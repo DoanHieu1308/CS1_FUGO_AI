@@ -78,7 +78,7 @@ def content_based_recommendations(studys_df, selected_studys_df, top_n=20):
 def recommend():
     try:
         # Lấy tất cả các jobs
-        url = "http://localhost:3000/api/v1/study"
+        url = "http://localhost:3000/api/v1/study/all"
         headers = {'Content-Type': 'application/json'}
 
         
